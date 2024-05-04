@@ -6,6 +6,6 @@ router = routers.SimpleRouter()
 router.register(r'', PurchaseOrderViewSet, basename='Order')
 urlpatterns = router.urls
 urlpatterns += [
-    path('<int:pk>/acknowledge', AcknowledgePurchaseOrderViewSet.as_view(
+    path('<int:pk>/acknowledge/', AcknowledgePurchaseOrderViewSet.as_view(
         {'post': 'create'}), name='acknowledge-order')
 ]
