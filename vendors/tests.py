@@ -5,13 +5,14 @@ from rest_framework.test import APIClient
 
 # Create your tests here.
 
+
 class TestVendorViewSet(TestCase):
 
     def setUp(self) -> None:
         self.client = APIClient()
         self.vendor = Vendor.objects.create(name='Test Vendor')
         return super().setUp()
-    
+
     def test_get_all_vendors(self):
         response = self.client.get('/api/vendors/')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -21,7 +22,8 @@ class TestVendorViewSet(TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_create_vendor(self):
-        data = {'name' : 'new vendor', 'contact_details': 'test', 'address': 'test', 'vendor_code': 'test'}
+        data = {'name': 'new vendor', 'contact_details': 'test',
+                'address': 'test', 'vendor_code': 'test'}
         response = self.client.post('/api/vendors/', data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
