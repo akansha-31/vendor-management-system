@@ -7,15 +7,15 @@ This is a Django based Application for Vendor Management System
 
 1. Clone the repository
 2. Set up a virtual environment
-- python3 - m venv venv
-- source venv/bin/activate
+    - python3 - m venv venv
+    - source venv/bin/activate
 
 3. Navigate to the project directory - where manage.py is present
-- cd vendor-management-system
+    - cd vendor-management-system
 4. Install dependencies by running
-- pip install - r requirements.txt
+    - pip install - r requirements.txt
 5. Run Application server by running
-- python manage.py runserver
+    - python manage.py runserver
 
 
 # create a superuser
@@ -35,7 +35,7 @@ token = Token.objects.create(user=user)
 
 
 # Use token in postman
-1. Add header with key "Authorization" and value "Token <Token>"
+1. Add header with key "Authorization" and value "Token < Token >"
 2. Replace < Token > with the generated token from the previous step.
 
 
@@ -53,7 +53,7 @@ token = Token.objects.create(user=user)
 
 
 # API Docs
-http: // 127.0.0.1: 8000/api/docs
+- http: // 127.0.0.1: 8000/api/docs
 
 
 # Run Tests
