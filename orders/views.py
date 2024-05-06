@@ -6,12 +6,28 @@ from datetime import datetime
 from django.utils import timezone
 import pytz
 from orders.models import ACKNOWLEDGED
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
 
 from .serializers import PurchaseOrderSerializerForGet, PurchaseOrderSerializerForPost
 # Create your views here.
 
 
 class PurchaseOrderViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint for managing purchase orders.
+    description: This endpoint allows you to perform CRUD operations on purchase orders.
+    ---
+    parameters:
+        name: vendor
+        description: Filter purchase orders by vendor ID
+        required: false
+        type: integer
+        paramType: query
+    """
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
     def get_queryset(self):
         queryset = PurchaseOrder.objects.all()
         vendor_id = self.request.query_params.get('vendor')
@@ -27,9 +43,16 @@ class PurchaseOrderViewSet(viewsets.ModelViewSet):
 
 
 class AcknowledgePurchaseOrderViewSet(viewsets.ViewSet):
-    # average response time - Calculated each time a PO is acknowledged by the vendor.
+    """
+    API endpoint for acknowledging purchase orders.
+    """
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
 
     def calculate_average_response_time(self, vendor, order):
+        """
+        Calculate average response time when a purchase order is acknowledged.
+        """
         issue_date = order.issue_date
         acknowledgment_date = order.acknowledgment_date
         time_difference = acknowledgment_date - issue_date
@@ -42,6 +65,9 @@ class AcknowledgePurchaseOrderViewSet(viewsets.ViewSet):
         return (vendor.average_response_time + total_seconds) / (count*3600)
 
     def create(self, request, pk=None):
+        """
+        Acknowledge a purchase order and update vendor metrics.
+        """
         order_instance = PurchaseOrder.objects.get(pk=pk)
         vendor_instance = Vendor.objects.get(pk=order_instance.vendor_id)
 

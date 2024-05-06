@@ -26,12 +26,11 @@ This is a Django based Application for Vendor Management System
 By default, DRF doesn't create tokens automatically. You need to create tokens for users manually. You can do this using Django's shell
 
 1. open shell by running -
-- python manage.py shell
+    - python manage.py shell
 
 2. create token for user
-
-user = User.objects.get(username='your_username')
-token = Token.objects.create(user=user)
+    - user = User.objects.get(username='your_username')
+    - token = Token.objects.create(user=user)
 
 
 # Use token in postman
